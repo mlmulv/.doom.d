@@ -1,0 +1,46 @@
+#+TITLE: Doom Emacs Config
+#+AUTHOR: Markus Mulvihill
+#+DESCRIPTION: My emacs config setup
+#+PROPERTY: header-args:emacs-lisp :tangle config.el
+
+#+begin_src emacs-lisp
+;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+#+end_src
+
+#+RESULTS:
+
+* Adding Relative Lines
+I included relative lines to be displayed on the left of the screen.
+
+#+begin_src emacs-lisp
+(etq display-line-numbers-type 'relative)
+#+end_src
+
+* My Org Path
+I use the default '~/org/' path to save all the my org files
+
+#+begin_src emacs-lisp
+(etq org-directory "~/org/")
+ #+end_src
+
+* Dracula Theme
+ Here I am adding my a custom theme called Dracula, where i added the **dracula-theme.el** to a directory
+ in '~/.emacs.d/'
+
+ #+begin_src emacs-lisp
+ (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+ (load-theme 'dracula t)
+ #+end_src
+
+* Adding bold and italic
+ In this line I enabled bold and italics to appear in code and comments. This also
+ includes the '/' and '*' to not appear around the work or comment.
+
+ #+begin_src emacs-lisp
+(after! doom-themes
+  (setq doom-themes-enable-bold t
+        doom-themes-enable-italic t))
+(custom-set-faces!
+  '(font-lock-comment-face :slant italic)
+  '(font-lock-keyword :slant italic))
+#+end_src

@@ -13,14 +13,14 @@
 I included relative lines to be displayed on the left of the screen.
 
 #+begin_src emacs-lisp
-(etq display-line-numbers-type 'relative)
+(setq display-line-numbers-type 'relative)
 #+end_src
 
 * My Org Path
 I use the default '~/org/' path to save all the my org files
 
 #+begin_src emacs-lisp
-(etq org-directory "~/org/")
+(setq org-directory "~/org/")
  #+end_src
 
 * Dracula Theme
@@ -32,6 +32,31 @@ I use the default '~/org/' path to save all the my org files
  (load-theme 'dracula t)
  #+end_src
 
+* Neotree
+I will be using Neotree as a file structure navigation tool. It will act as a visual of your project layout
+
+#+begin_src emacs-lisp
+(add-to-list 'load-path "~/.emacs.d/neotree")
+(require 'neotree)
+(global-set-key [f8] 'neotree-toggle)
+#+end_src
+
+#+RESULTS:
+: neotree-toggle
+
+* Org-bullets
+Instead of using the default Doom Emacs '*' for the markers, I will be adding in org-bullets instead.
+
+#+begin_src emacs-lisp
+(add-to-list 'load-path "~/.emacs.d/org-bullets")
+(require 'org-bullets)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+#+end_src
+
+#+RESULTS:
+| (lambda nil (org-bullets-mode 1)) | er/add-org-mode-expansions | +lookup--init-org-mode-handlers-h | (closure (t) (&rest _) (add-hook 'before-save-hook 'org-encrypt-entries nil t)) | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-fold-show-all append local] 5] | #[0 \301\211\207 [imenu-create-index-function org-imenu-get-tree] 2] | doom-disable-show-paren-mode-h | doom-disable-show-trailing-whitespace-h | +org-make-last-point-visible-h | evil-org-mode | org-eldoc-load | toc-org-enable | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-babel-show-result-all append local] 5] | org-babel-result-hide-spec | org-babel-hide-all-hashes | embrace-org-mode-hook |
+
+ 
 * Adding bold and italic
  In this line I enabled bold and italics to appear in code and comments. This also
  includes the '/' and '*' to not appear around the work or comment.

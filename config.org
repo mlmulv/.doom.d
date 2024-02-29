@@ -8,6 +8,16 @@
 #+end_src
 
 #+RESULTS:
+* Configuring Emacs PATH
+This is needed for Doom Emacs my path where GCC and G++ are installed
+
+#+begin_src emacs-lisp
+(setq exec-path (append exec-path '("C:\\msys64\\mingw64\\bin")))
+(setenv "PATH" (concat "C:\\msys64\\mingw64\\bin;" (getenv "PATH")))
+#+end_src
+
+#+RESULTS:
+: C:\msys64\mingw64\bin;C:\msys64\mingw64\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\Program Files (x86)\Bitvise SSH Client;C:\Users\Markus Mulvihill\AppData\Local\Microsoft\WindowsApps;C:\intelFPGA_lite\20.1\modelsim_ase\win32aloem;C:\Users\Markus Mulvihill\AppData\Local\GitHubDesktop\bin;C:\Users\Markus Mulvihill\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Markus Mulvihill\.emacs.d\bin;C:\Users\Markus Mulvihill\emacs-29.2_1\bin;C:\Users\Markus Mulvihill\anaconda3\condabin;
 
 * Adding Relative Lines
 I included relative lines to be displayed on the left of the screen.
@@ -69,3 +79,40 @@ Instead of using the default Doom Emacs '*' for the markers, I will be adding in
   '(font-lock-comment-face :slant italic)
   '(font-lock-keyword :slant italic))
 #+end_src
+
+* Development
+
+** Language Servers
+To begin using languages that do not have built in lsp into emacs we must enable lsp to enable emacs to communicate with the language server.
+
+#+begin_src emacs-lisp
+(use-package lsp-mode
+:commands (lsp lsp-deferred)
+:init
+(setq lsp-keymap-prefix "C-c l") ;; Control l for lsp-mode
+:config
+(lsp-enable-which-key-integration t)) ;; descriptions for key bindings
+#+end_src
+
+#+RESULTS:
+
+** Completion with Company Mode
+
+#+begin_src emacs-lisp
+(use-package company
+  :after lsp-mode
+  :hook (lsp-mode . company-mode)
+  :bind (:map company-active-map
+         ("<tab>" . company-complete-selection))
+        (:map lsp-mode-map
+         ("<tab>" . company-indent-or-complete-common))
+  :custom
+  (company-minimum-prefix-length 1)
+  (company-idle-delay 0.0))
+
+(use-package company-box
+  :hook (company-mode . company-box-mode))
+#+end_src
+
+#+RESULTS:
+| evil-normalize-keymaps | company-mode-set-explicitly | company-box-mode |

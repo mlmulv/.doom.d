@@ -1,0 +1,7 @@
+#+title: Doom Emacs Setup
+#+author: Markus Mulvihill
+#+description: This repo contains all the files needed to setup Doom Emacs on my Windows 11 machine
+
+This repo contains all the files needed to clone a Doom Emacs configuration.
+
+TODO: in the future add instructions for users to add my configuration to their machine.

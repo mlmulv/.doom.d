@@ -8,7 +8,8 @@
 #+end_src
 
 #+RESULTS:
-* Configuring Emacs PATH
+* Configuring Paths
+** Configuring Emacs PATH
 This is needed for Doom Emacs my path where GCC and G++ are installed
 
 #+begin_src emacs-lisp
@@ -17,23 +18,24 @@ This is needed for Doom Emacs my path where GCC and G++ are installed
 #+end_src
 
 #+RESULTS:
-: C:\msys64\mingw64\bin;C:\msys64\mingw64\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\Program Files (x86)\Bitvise SSH Client;C:\Users\Markus Mulvihill\AppData\Local\Microsoft\WindowsApps;C:\intelFPGA_lite\20.1\modelsim_ase\win32aloem;C:\Users\Markus Mulvihill\AppData\Local\GitHubDesktop\bin;C:\Users\Markus Mulvihill\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Markus Mulvihill\.emacs.d\bin;C:\Users\Markus Mulvihill\emacs-29.2_1\bin;C:\Users\Markus Mulvihill\anaconda3\condabin;
+: C:\msys64\mingw64\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\Program Files (x86)\Bitvise SSH Client;C:\Users\Markus Mulvihill\AppData\Local\Microsoft\WindowsApps;C:\intelFPGA_lite\20.1\modelsim_ase\win32aloem;C:\Users\Markus Mulvihill\AppData\Local\GitHubDesktop\bin;C:\Users\Markus Mulvihill\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Markus Mulvihill\.emacs.d\bin;C:\Users\Markus Mulvihill\emacs-29.2_1\bin;C:\Users\Markus Mulvihill\anaconda3\condabin;
 
-* Adding Relative Lines
-I included relative lines to be displayed on the left of the screen.
 
-#+begin_src emacs-lisp
-(setq display-line-numbers-type 'relative)
-#+end_src
-
-* My Org Path
+** My Org Path
 I use the default '~/org/' path to save all the my org files
 
 #+begin_src emacs-lisp
 (setq org-directory "~/org/")
  #+end_src
 
-* Dracula Theme
+* Configuring UI Stuff
+** Adding Relative Lines
+I included relative lines to be displayed on the left of the screen.
+
+#+begin_src emacs-lisp
+(setq display-line-numbers-type 'relative)
+#+end_src
+** Dracula Theme
  Here I am adding my a custom theme called Dracula, where i added the **dracula-theme.el** to a directory
  in '~/.emacs.d/'
 
@@ -42,7 +44,7 @@ I use the default '~/org/' path to save all the my org files
  (load-theme 'dracula t)
  #+end_src
 
-* Neotree
+** Neotree
 I will be using Neotree as a file structure navigation tool. It will act as a visual of your project layout
 
 #+begin_src emacs-lisp
@@ -54,20 +56,48 @@ I will be using Neotree as a file structure navigation tool. It will act as a vi
 #+RESULTS:
 : neotree-toggle
 
-* Org-bullets
-Instead of using the default Doom Emacs '*' for the markers, I will be adding in org-bullets instead.
+** Org-superstar:
+Instead of using the default Doom Emacs '*' for the markers, I will be adding in org-superstar instead.
 
 #+begin_src emacs-lisp
-(add-to-list 'load-path "~/.emacs.d/org-bullets")
-(require 'org-bullets)
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+(add-to-list 'load-path "~/.emacs.d/org-superstar")
+(require 'org-superstar)
+
+;;; Titles and Sections
+;; hide #+TITLE:
+(setq org-hidden-keywords '(title))
+;; set basic title font
+(set-face-attribute 'org-level-8 nil :weight 'bold :inherit 'default)
+;; Low levels are unimportant => no scaling
+(set-face-attribute 'org-level-7 nil :inherit 'org-level-8)
+(set-face-attribute 'org-level-6 nil :inherit 'org-level-8)
+(set-face-attribute 'org-level-5 nil :inherit 'org-level-8)
+(set-face-attribute 'org-level-4 nil :inherit 'org-level-8)
+;; Top ones get scaled the same as in LaTeX (\large, \Large, \LARGE)
+(set-face-attribute 'org-level-3 nil :inherit 'org-level-8 :height 1.2) ;\large
+(set-face-attribute 'org-level-2 nil :inherit 'org-level-8 :height 1.44) ;\Large
+(set-face-attribute 'org-level-1 nil :inherit 'org-level-8 :height 1.728) ;\LARGE
+;; Only use the first 4 styles and do not cycle.
+(setq org-cycle-level-faces nil)
+(setq org-n-level-faces 4)
+;; Document Title, (\huge)
+(set-face-attribute 'org-document-title nil
+                    :height 2.074
+                    :foreground 'unspecified
+                    :inherit 'org-level-8)
+
+;;; Basic Setup
+;; Auto-start Superstar with Org
+(add-hook 'org-mode-hook
+          (lambda ()
+            (org-superstar-mode 1)))                
 #+end_src
 
 #+RESULTS:
-| (lambda nil (org-bullets-mode 1)) | er/add-org-mode-expansions | +lookup--init-org-mode-handlers-h | (closure (t) (&rest _) (add-hook 'before-save-hook 'org-encrypt-entries nil t)) | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-fold-show-all append local] 5] | #[0 \301\211\207 [imenu-create-index-function org-imenu-get-tree] 2] | doom-disable-show-paren-mode-h | doom-disable-show-trailing-whitespace-h | +org-make-last-point-visible-h | evil-org-mode | org-eldoc-load | toc-org-enable | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-babel-show-result-all append local] 5] | org-babel-result-hide-spec | org-babel-hide-all-hashes | embrace-org-mode-hook |
+| (lambda nil (org-superstar-mode 1)) | er/add-org-mode-expansions | #[0 \301\211\207 [imenu-create-index-function org-imenu-get-tree] 2] | org-autolist-mode | (closure (t) nil (org-superstar-mode 1)) | +lookup--init-org-mode-handlers-h | (closure (t) (&rest _) (add-hook 'before-save-hook 'org-encrypt-entries nil t)) | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-fold-show-all append local] 5] | doom-disable-show-paren-mode-h | doom-disable-show-trailing-whitespace-h | +org-make-last-point-visible-h | evil-org-mode | org-eldoc-load | toc-org-enable | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-babel-show-result-all append local] 5] | org-babel-result-hide-spec | org-babel-hide-all-hashes | embrace-org-mode-hook | (closure (t) nil (org-autolist-mode)) |
 
  
-* Adding bold and italic
+** Adding bold and italic
  In this line I enabled bold and italics to appear in code and comments. This also
  includes the '/' and '*' to not appear around the work or comment.
 
@@ -79,6 +109,15 @@ Instead of using the default Doom Emacs '*' for the markers, I will be adding in
   '(font-lock-comment-face :slant italic)
   '(font-lock-keyword :slant italic))
 #+end_src
+
+** Having Bullet Auto-list
+#+begin_src emacs-lisp
+(use-package org-autolist
+  :hook (org-mode . org-autolist-mode))
+#+end_src
+
+#+RESULTS:
+| org-autolist-mode | er/add-org-mode-expansions | +lookup--init-org-mode-handlers-h | (closure (t) (&rest _) (add-hook 'before-save-hook 'org-encrypt-entries nil t)) | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-fold-show-all append local] 5] | #[0 \301\211\207 [imenu-create-index-function org-imenu-get-tree] 2] | (closure (t) nil (org-bullets-mode 1)) | doom-disable-show-paren-mode-h | doom-disable-show-trailing-whitespace-h | +org-make-last-point-visible-h | evil-org-mode | org-eldoc-load | toc-org-enable | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-babel-show-result-all append local] 5] | org-babel-result-hide-spec | org-babel-hide-all-hashes | embrace-org-mode-hook |
 
 * Development
 

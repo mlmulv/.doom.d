@@ -52,3 +52,4 @@
 (package! evil-tutor)
 (package! company)
 (package! company-box)
+(package! org-autolist)

@@ -8,6 +8,7 @@
 #+end_src
 
 #+RESULTS:
+
 * Configuring Paths
 ** Configuring Emacs PATH
 This is needed for Doom Emacs my path where GCC and G++ are installed
